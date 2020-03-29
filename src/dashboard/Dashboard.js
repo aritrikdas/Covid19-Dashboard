@@ -310,7 +310,7 @@ export default class Dashboard extends Component {
                         <div className="col-md-4 col-sm-4 col-xs-12">
                             <div className="x_panel">
                                 <div className="x_title">
-                                    <h2>Recent Activities <small>Sessions</small></h2>
+                                    <h2>Recent News <small>Sessions</small></h2>
                                     <ul className="nav navbar-right panel_toolbox">
                                         <li><a className="collapse-link"><i className="fa fa-chevron-up" /></a>
                                         </li>

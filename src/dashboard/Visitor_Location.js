@@ -53,7 +53,7 @@ export default class VisitorLocation extends Component {
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div id="world-map-gdp" className="col-md-8 col-sm-12 col-xs-12" style={{ height: '230px' }} />
+                                                <div id="world-map-gdp" className="col-md-8 col-sm-12 col-xs-12" style={{ height: '430px' }} />
                                             </div>
                                         </div>
                                     </div>
