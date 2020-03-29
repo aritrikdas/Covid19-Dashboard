@@ -4873,3 +4873,30 @@ ul.notifications {
   border: 1px solid #e5e5e5; }
 
 /** /Dropzone.js **/
+
+
+/*Custom CSS*/
+.title-flag {
+  height: 16px;
+}
+
+.tile_stats_count .top-title-counter-wrapper {
+  margin-top: 0;
+  margin-left: 1rem;
+}
+.tile_stats_count .top-title-counter-wrapper .count {
+  line-height: 1;
+}
+.title-rest-world {
+  overflow-x: scroll;
+  margin-bottom: 0;
+  flex-wrap: nowrap;
+}
+.title-content-india:after {
+  content: "";
+    position: absolute;
+    left: 0;
+    height: 65px;
+    border-left: 2px solid #ADB2B5;
+    margin-top: 10px;
+}
