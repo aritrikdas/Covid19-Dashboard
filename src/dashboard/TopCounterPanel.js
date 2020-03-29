@@ -53,10 +53,10 @@ export default class TopCounterPanel extends Component {
 
                 {this.state.allCountryList.map((countryObj) => {
                     return (
-                        <div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count title-content-india">
+                        <div className="tile_stats_count title-content-world">
                             <div className="d-flex">
                                 <div>
-                                    <img src={countryObj.countryInfo.flag} className="title-flag" />
+                                    <img src={countryObj.countryInfo.flag} className="title-flag"/>
                                     <span className="count_top d-block">{countryObj.country}</span>
                                 </div>
                                 <div className="top-title-counter-wrapper">
