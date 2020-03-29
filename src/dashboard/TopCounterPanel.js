@@ -5,13 +5,34 @@ export default class TopCounterPanel extends Component {
         super(props);
         this.state = {
             data: null,
+            allCountryList: [],
+            indiaList: []
         };
     }
     componentDidMount() {
-        fetch('/api/v1/total-data')
-            .then(res => res.json())
-            .then(data => this.setState({ hits: data.hits, isLoading: false }))
-            .catch(error => this.setState({ error, isLoading: false }));
+        fetch("/api/v1/world-data").then((res) => res.json()).then((data) => {
+            //console.log(data);
+            if (data.status) {
+                this.setState({ allCountryList: data.respObj })
+            }
+        }).catch(err => {
+            console.log(err);
+        })
+
+        fetch("/api/v1/india-data").then((res) => res.json()).then((data) => {
+            //console.log(data);
+            if (data.status) {
+                this.setState({ indiaList: data.respObj.statewise[0] })
+            }
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+    calculateDailyPercentage(totalCases, todayCases){
+          //console.log(totalCases + " "+ todayCases)
+          let yesterDayCases = totalCases-todayCases
+          let casePercentage = (todayCases/yesterDayCases)*100
+          return Math.ceil(casePercentage)
     }
     render() {
         return (
@@ -23,254 +44,34 @@ export default class TopCounterPanel extends Component {
                             <span className="count_top d-block"> India</span>
                         </div>
                         <div className="top-title-counter-wrapper">
-                            <span className="count red">2500</span>
-                            <span className="count_bottom"><i className="red"><i className="fa fa-sort-asc" />4% </i> Today</span>
-                            <span className="count_bottom d-block green"><i > 90</i> RECOVERED</span>
-                            <span className="count_bottom d-block pink"><i > 90</i> DECEASED</span>
+                            <span className="count red">{this.state.indiaList.confirmed} </span>
+                            <span className="count_bottom d-block green"><i > {this.state.indiaList.recovered}</i> RECOVERED</span>
+                            <span className="count_bottom d-block pink"><i > {this.state.indiaList.deaths}</i> DECEASED</span>
                         </div>
                     </div>
                 </div>
 
-                <div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count title-content-india">
-                    <div className="d-flex">
-                        <div>
-                            <img src="https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/us.png" className="title-flag" />
-                            <span className="count_top d-block"> USA</span>
+                {this.state.allCountryList.map((countryObj) => {
+                    return (
+                        <div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count title-content-india">
+                            <div className="d-flex">
+                                <div>
+                                    <img src={countryObj.countryInfo.flag} className="title-flag" />
+                                    <span className="count_top d-block">{countryObj.country}</span>
+                                </div>
+                                <div className="top-title-counter-wrapper">
+                                    <span className="count red">{countryObj.cases}</span>
+                                    <span className="count_bottom"><i className="red"><i className="fa fa-sort-asc" />{this.calculateDailyPercentage(countryObj.cases, countryObj.todayCases)}% </i></span>
+                                    <span className="count_bottom d-block green"><i > {countryObj.recovered}</i> RECOVERED</span>
+                                    <span className="count_bottom d-block pink"><i > {countryObj.deaths}</i> DECEASED</span>
+                                </div>
+                            </div>
                         </div>
-                        <div className="top-title-counter-wrapper">
-                            <span className="count red">123781</span>
-                            <span className="count_bottom"><i className="red"><i className="fa fa-sort-asc" />4% </i> Today</span>
-                            <span className="count_bottom d-block green"><i > 3238</i> RECOVERED</span>
-                            <span className="count_bottom d-block pink"><i > 2229</i> DECEASED</span>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count title-content-india">
-                    <div className="d-flex">
-                        <div>
-                            <img src="https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/it.png" className="title-flag" />
-                            <span className="count_top d-block"> Italy</span>
-                        </div>
-                        <div className="top-title-counter-wrapper">
-                            <span className="count red">92472</span>
-                            <span className="count_bottom"><i className="red"><i className="fa fa-sort-asc" />4% </i> Today</span>
-                            <span className="count_bottom d-block green"><i > 12384</i> RECOVERED</span>
-                            <span className="count_bottom d-block pink"><i > 10023</i> DECEASED</span>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count title-content-india">
-                    <div className="d-flex">
-                        <div>
-                            <img src="https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/cn.png" className="title-flag" />
-                            <span className="count_top d-block"> Chaina</span>
-                        </div>
-                        <div className="top-title-counter-wrapper">
-                            <span className="count red">81439</span>
-                            <span className="count_bottom"><i className="red"><i className="fa fa-sort-asc" />4% </i> Today</span>
-                            <span className="count_bottom d-block green"><i > 75448</i> RECOVERED</span>
-                            <span className="count_bottom d-block pink"><i > 933000</i> DECEASED</span>
-                        </div>
-                    </div>
-                </div><div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count title-content-india">
-                    <div className="d-flex">
-                        <div>
-                            <img src="https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/es.png" className="title-flag" />
-                            <span className="count_top d-block"> Spain</span>
-                        </div>
-                        <div className="top-title-counter-wrapper">
-                            <span className="count red">78797</span>
-                            <span className="count_bottom"><i className="red"><i className="fa fa-sort-asc" />4% </i> Today</span>
-                            <span className="count_bottom d-block green"><i > 14709</i> RECOVERED</span>
-                            <span className="count_bottom d-block pink"><i > 6528</i> DECEASED</span>
-                        </div>
-                    </div>
-                </div><div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count title-content-india">
-                    <div className="d-flex">
-                        <div>
-                            <img src="https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/de.png" className="title-flag" />
-                            <span className="count_top d-block"> Germany</span>
-                        </div>
-                        <div className="top-title-counter-wrapper">
-                            <span className="count red">58247</span>
-                            <span className="count_bottom"><i className="red"><i className="fa fa-sort-asc" />4% </i> Today</span>
-                            <span className="count_bottom d-block green"><i > 8481</i> RECOVERED</span>
-                            <span className="count_bottom d-block pink"><i > 455</i> DECEASED</span>
-                        </div>
-                    </div>
-                </div><div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count title-content-india">
-                    <div className="d-flex">
-                        <div>
-                            <img src="https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/in.png" className="title-flag" />
-                            <span className="count_top d-block"> India</span>
-                        </div>
-                        <div className="top-title-counter-wrapper">
-                            <span className="count red">2500</span>
-                            <span className="count_bottom"><i className="red"><i className="fa fa-sort-asc" />4% </i> Today</span>
-                            <span className="count_bottom d-block green"><i > 90</i> RECOVERED</span>
-                            <span className="count_bottom d-block pink"><i > 90</i> DECEASED</span>
-                        </div>
-                    </div>
-                </div><div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count title-content-india">
-                    <div className="d-flex">
-                        <div>
-                            <img src="https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/in.png" className="title-flag" />
-                            <span className="count_top d-block"> India</span>
-                        </div>
-                        <div className="top-title-counter-wrapper">
-                            <span className="count red">2500</span>
-                            <span className="count_bottom"><i className="red"><i className="fa fa-sort-asc" />4% </i> Today</span>
-                            <span className="count_bottom d-block green"><i > 90</i> RECOVERED</span>
-                            <span className="count_bottom d-block pink"><i > 90</i> DECEASED</span>
-                        </div>
-                    </div>
-                </div><div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count title-content-india">
-                    <div className="d-flex">
-                        <div>
-                            <img src="https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/in.png" className="title-flag" />
-                            <span className="count_top d-block"> India</span>
-                        </div>
-                        <div className="top-title-counter-wrapper">
-                            <span className="count red">2500</span>
-                            <span className="count_bottom"><i className="red"><i className="fa fa-sort-asc" />4% </i> Today</span>
-                            <span className="count_bottom d-block green"><i > 90</i> RECOVERED</span>
-                            <span className="count_bottom d-block pink"><i > 90</i> DECEASED</span>
-                        </div>
-                    </div>
-                </div><div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count title-content-india">
-                    <div className="d-flex">
-                        <div>
-                            <img src="https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/in.png" className="title-flag" />
-                            <span className="count_top d-block"> India</span>
-                        </div>
-                        <div className="top-title-counter-wrapper">
-                            <span className="count red">2500</span>
-                            <span className="count_bottom"><i className="red"><i className="fa fa-sort-asc" />4% </i> Today</span>
-                            <span className="count_bottom d-block green"><i > 90</i> RECOVERED</span>
-                            <span className="count_bottom d-block pink"><i > 90</i> DECEASED</span>
-                        </div>
-                    </div>
-                </div><div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count title-content-india">
-                    <div className="d-flex">
-                        <div>
-                            <img src="https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/in.png" className="title-flag" />
-                            <span className="count_top d-block"> India</span>
-                        </div>
-                        <div className="top-title-counter-wrapper">
-                            <span className="count red">2500</span>
-                            <span className="count_bottom"><i className="red"><i className="fa fa-sort-asc" />4% </i> Today</span>
-                            <span className="count_bottom d-block green"><i > 90</i> RECOVERED</span>
-                            <span className="count_bottom d-block pink"><i > 90</i> DECEASED</span>
-                        </div>
-                    </div>
-                </div><div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count title-content-india">
-                    <div className="d-flex">
-                        <div>
-                            <img src="https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/in.png" className="title-flag" />
-                            <span className="count_top d-block"> India</span>
-                        </div>
-                        <div className="top-title-counter-wrapper">
-                            <span className="count red">2500</span>
-                            <span className="count_bottom"><i className="red"><i className="fa fa-sort-asc" />4% </i> Today</span>
-                            <span className="count_bottom d-block green"><i > 90</i> RECOVERED</span>
-                            <span className="count_bottom d-block pink"><i > 90</i> DECEASED</span>
-                        </div>
-                    </div>
-                </div><div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count title-content-india">
-                    <div className="d-flex">
-                        <div>
-                            <img src="https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/in.png" className="title-flag" />
-                            <span className="count_top d-block"> India</span>
-                        </div>
-                        <div className="top-title-counter-wrapper">
-                            <span className="count red">2500</span>
-                            <span className="count_bottom"><i className="red"><i className="fa fa-sort-asc" />4% </i> Today</span>
-                            <span className="count_bottom d-block green"><i > 90</i> RECOVERED</span>
-                            <span className="count_bottom d-block pink"><i > 90</i> DECEASED</span>
-                        </div>
-                    </div>
-                </div><div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count title-content-india">
-                    <div className="d-flex">
-                        <div>
-                            <img src="https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/in.png" className="title-flag" />
-                            <span className="count_top d-block"> India</span>
-                        </div>
-                        <div className="top-title-counter-wrapper">
-                            <span className="count red">2500</span>
-                            <span className="count_bottom"><i className="red"><i className="fa fa-sort-asc" />4% </i> Today</span>
-                            <span className="count_bottom d-block green"><i > 90</i> RECOVERED</span>
-                            <span className="count_bottom d-block pink"><i > 90</i> DECEASED</span>
-                        </div>
-                    </div>
-                </div><div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count title-content-india">
-                    <div className="d-flex">
-                        <div>
-                            <img src="https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/in.png" className="title-flag" />
-                            <span className="count_top d-block"> India</span>
-                        </div>
-                        <div className="top-title-counter-wrapper">
-                            <span className="count red">2500</span>
-                            <span className="count_bottom"><i className="red"><i className="fa fa-sort-asc" />4% </i> Today</span>
-                            <span className="count_bottom d-block green"><i > 90</i> RECOVERED</span>
-                            <span className="count_bottom d-block pink"><i > 90</i> DECEASED</span>
-                        </div>
-                    </div>
-                </div><div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count title-content-india">
-                    <div className="d-flex">
-                        <div>
-                            <img src="https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/in.png" className="title-flag" />
-                            <span className="count_top d-block"> India</span>
-                        </div>
-                        <div className="top-title-counter-wrapper">
-                            <span className="count red">2500</span>
-                            <span className="count_bottom"><i className="red"><i className="fa fa-sort-asc" />4% </i> Today</span>
-                            <span className="count_bottom d-block green"><i > 90</i> RECOVERED</span>
-                            <span className="count_bottom d-block pink"><i > 90</i> DECEASED</span>
-                        </div>
-                    </div>
-                </div>
+                    )
+                })
+                }
 
-
-                {/* <div className="d-flex title-rest-world">
-                    <div className="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-                        <div className="d-flex">
-                            <div>
-                                <img src="https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/mu.png" className="title-flag" />
-                                <span className="count_top d-block"> India</span>
-                            </div>
-                            <div className="top-title-counter-wrapper">
-                                <span className="count red">2500</span>
-                                <span className="count_bottom"><i className="red"><i className="fa fa-sort-asc" />4% </i> Today</span>
-                                <span className="count_bottom d-block green"><i > 90</i> RECOVERED</span>
-                                <span className="count_bottom d-block pink"><i > 90</i> DECEASED</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-                        <div className="d-flex">
-                            <div>
-                                <img src="https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/mu.png" className="title-flag" />
-                                <span className="count_top d-block"> India</span>
-                            </div>
-                            <div className="top-title-counter-wrapper">
-                                <span className="count red">2500</span>
-                                <span className="count_bottom"><i className="red"><i className="fa fa-sort-asc" />4% </i> Today</span>
-                                <span className="count_bottom d-block green"><i > 90</i> RECOVERED</span>
-                                <span className="count_bottom d-block pink"><i > 90</i> DECEASED</span>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
-                {/* <div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <img src="https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/mu.png" className="title-flag" />
-                    <span className="count_top d-block"> India</span>
-                    <span className="count red">2500</span>
-                    <span className="count_bottom"><i className="red"><i className="fa fa-sort-asc" />4% </i> Today</span>
-                    <span className="count_bottom d-block green"><i > 90</i> Recovered</span>
-                    <span className="count_bottom d-block pink"><i > 90</i> DECEASED</span>
-                </div> */}
-
-            </div>
+            </div >
         )
     }
 }
