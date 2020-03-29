@@ -39,8 +39,10 @@ export default class Dashboard extends Component {
                             <span className="count_bottom"><i className="green"><i className="fa fa-sort-asc" />34% </i> From last Week</span>
                         </div>
                     </div>
+                    
                     {/* /top tiles */}
-                    <div className="row">
+                   
+                    {/*<div className="row">
                         <div className="col-md-12 col-sm-12 col-xs-12">
                             <div className="dashboard_graph">
                                 <div className="row x_title">
@@ -334,7 +336,7 @@ export default class Dashboard extends Component {
                                 </div>
                             </div>
                         </div>
-                    </div>
+        </div>*/}
                     <div className="row">
                         <div className="col-md-4 col-sm-4 col-xs-12">
                             <div className="x_panel">
@@ -422,7 +424,6 @@ export default class Dashboard extends Component {
                         <VisitorLocation></VisitorLocation>
                     </div>
                 </div>
-
             </div>
         )
     }
