@@ -11,5 +11,9 @@ router.get('/world-data', function (req, res, next) {
 router.get('/latest-news', (req, res) => {
     worldNewsApiController.getLatestNewsFeed(req, res);
 })
+/* GET All Country. */
+router.get('/total-data', function (req, res, next) {
+    countryController.totalStat(req, res);
+});
 
 module.exports = router;

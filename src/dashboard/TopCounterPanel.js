@@ -1,6 +1,18 @@
 import React, { Component } from 'react'
 
 export default class TopCounterPanel extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: null,
+        };
+    }
+    componentDidMount() {
+        fetch('/api/v1/total-data')
+            .then(res => res.json())
+            .then(data => this.setState({ hits: data.hits, isLoading: false }))
+            .catch(error => this.setState({ error, isLoading: false }));
+    }
     render() {
         return (
             <div className="row tile_count title-rest-world">
