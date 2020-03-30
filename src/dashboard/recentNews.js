@@ -81,30 +81,32 @@ export default class RecentNews extends Component {
                     </div>
                     <div className="x_content">
                         <div className="dashboard-widget-content">
-                            {
-                                this.state.newsFeedArray.map((newsObj, index) => {
-                                    return (<ul className="list-unstyled timeline widget">
-                                        <li key={newsObj.publishedAt}>
-                                            <div className="block">
-                                                <div className="block_content">
-                                                    <h2 className="title">
-                                                        <a>{newsObj.title}</a>
-                                                    </h2>
-                                                    <div className="byline">
-                                                        <span>13 hours ago</span> by <a> {newsObj.author} </a>
+                            <ul className="list-unstyled timeline widget">
+                                {
+                                    this.state.newsFeedArray.map((newsObj, index) => {
+                                        return (
+                                            <li key={newsObj.publishedAt}>
+                                                <div className="block">
+                                                    <div className="block_content">
+                                                        <h2 className="title">
+                                                            <a>{newsObj.title}</a>
+                                                        </h2>
+                                                        <div className="byline">
+                                                            <span>13 hours ago</span> by <a> {newsObj.author} </a>
+                                                        </div>
+                                                        <p className="excerpt">
+                                                            <Truncate lines={2} ellipsis={<span>... <a href={newsObj.url} target="_blank">Read more</a></span>}>
+                                                                {newsObj.content}
+                                                            </Truncate>
+
+                                                        </p>
                                                     </div>
-                                                    <p className="excerpt">
-                                                        <Truncate lines={2} ellipsis={<span>... <a href={newsObj.url} target="_blank">Read more</a></span>}>
-                                                        {newsObj.content}
-                                                        </Truncate>
-                                                        
-                                                    </p>
                                                 </div>
-                                            </div>
-                                        </li>
-                                    </ul>);
-                                })
-                            }
+                                            </li>
+                                        );
+                                    })
+                                }
+                            </ul>
                             {/* {this.generateNweesFeed()} */}
                             {/* <NumberList numbers={numbers} />
                             <generateNweesFeed newsFeedArray={this.newsFeedArray} />
