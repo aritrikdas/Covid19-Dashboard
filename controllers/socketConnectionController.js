@@ -1,11 +1,6 @@
 var twitter = require('twitter');
-
-var twit = new twitter({
-    consumer_key: 'xreErlFjEkJMQDN4gGyP7Yg5s',
-    consumer_secret: '9lZ6CCxRGCQqImDNn174rPjjFCwZM9bY83c2kJdNfB3V4J2q4W',
-    access_token_key: '2607081344-KAZqjXenodDtjpa8T0Vl1zmgQwYmblWgEPLlyXU',
-    access_token_secret: 'XhsSinpmD6JdyXHkzeHGVFnHdrsu9Ypju4affO2YUpvFQ'
-});
+const configJson = require('../config.json');
+var twit = new twitter(configJson.twitter);
 
 
 exports.respond = function (socket) {
