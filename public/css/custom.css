@@ -4897,3 +4897,14 @@ ul.notifications {
 .title-rest-world .title-content-world{
   overflow: unset;
 }
+
+.media .profile_thumb.tweet-feed {
+  padding: 0;
+}
+.tweet-feed img {
+  border-radius: 50%;
+}
+
+.scroll-view  {
+  overflow: scroll;
+}
