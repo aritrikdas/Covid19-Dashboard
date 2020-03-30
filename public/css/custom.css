@@ -4884,6 +4884,7 @@ ul.notifications {
   margin-top: 0;
   margin-left: 1rem;
 }
+
 .tile_stats_count .top-title-counter-wrapper .count {
   line-height: 1;
 }
@@ -4892,11 +4893,7 @@ ul.notifications {
   margin-bottom: 0;
   flex-wrap: nowrap;
 }
-.title-content-india:after {
-  content: "";
-    position: absolute;
-    left: 0;
-    height: 65px;
-    border-left: 2px solid #ADB2B5;
-    margin-top: 10px;
+
+.title-rest-world .title-content-world{
+  overflow: unset;
 }
