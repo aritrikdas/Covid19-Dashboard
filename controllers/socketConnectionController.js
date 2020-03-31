@@ -11,21 +11,21 @@ exports.respond = function (socket) {
     getLatestTweet(socket, 10);
     // setInterval(() => getLatestTweet(socket), 15000);
      
-    twit.stream('statuses/filter', { track: 'covid19', language: 'en', filter_level: 'medium' }, function (stream) {
-        stream.on('data', function (data) {
-            //io.sockets.emit('tweet', data.text);
-            socket.emit("FromAPI", data); 
-            console.log('tweet received', data.text);
-        });
+    // twit.stream('statuses/filter', { track: 'covid19', language: 'en', filter_level: 'medium' }, function (stream) {
+    //     stream.on('data', function (data) {
+    //         //io.sockets.emit('tweet', data.text);
+    //         socket.emit("FromAPI", data); 
+    //         console.log('tweet received', data.text);
+    //     });
 
-        stream.on('error', function (err) {
-            console.log("conn err", err);
-        })
+    //     stream.on('error', function (err) {
+    //         console.log("conn err", err);
+    //     })
 
-        stream.on('disconnect', function (err) {
-            console.log("conn err", err);
-        })
-    });
+    //     stream.on('disconnect', function (err) {
+    //         console.log("conn err", err);
+    //     })
+    // });
 
     console.log("Connection estublished");
 }
