@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var dbHandler = require('./services/dbHandlerService');
 const apiV1Router = require('./routes/v1/api');
+const cronJobController = require('./controllers/cronJobController');
 
 var app = express();
 
@@ -42,12 +43,7 @@ app.use(function (err, req, res, next) {
     res.render('error');
 });
 
-// , t = new Twitter({
-//   consumer_key: 'xreErlFjEkJMQDN4gGyP7Yg5s',
-//   consumer_secret: '9lZ6CCxRGCQqImDNn174rPjjFCwZM9bY83c2kJdNfB3V4J2q4W',
-//   token: 'xreErlFjEkJMQDN4gGyP7Yg5s',
-//   token_secret: 'VOvivyOYyMyQV1kbVFmsH1111BsKhm5CAOJMIitq4SK9s'
-// })
-dbHandler.find();
+cronJobController.cronScheduler();
+//dbHandler.find();
 
 module.exports = app;

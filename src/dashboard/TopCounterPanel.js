@@ -70,10 +70,7 @@ export default class TopCounterPanel extends Component {
         return (
 
              <div className="d-flex col-xl-12 carousel-wrapper">
-                <Carousel responsive={responsive} partialVisible 
-                ssr={true}
-                infinite={true}
-                 itemClass="d-flex col-xl-12">
+
                     {
                         this.state.allCountryList.map((countryObj, index) => {
                             return (
@@ -90,11 +87,7 @@ export default class TopCounterPanel extends Component {
                                                     <h4 className="text-c-pink d-flex f-w-600">{countryObj.cases}
                                                         <p className="text-danger m-b-0 p-l-20 case-spike-hike">{this.calculateDailyPercentage(countryObj.cases, countryObj.todayCases)}% <i className="feather icon-trending-up text-red f-16"></i></p>
                                                     </h4>
-                                                    {/* <div className="d-flex align-items-">
-                                                    <h6 className="m-b-0 text-c-green">{countryObj.recovered} Recovered</h6>
-                                                    <span className="divider"></span>
-                                                    <h6 className="text-muted">{countryObj.deaths} Deceased</h6>
-                                                </div> */}
+                                                    
                                                 </div>
                                             </div>
                                             <div className="col-12 d-flex justify-content-between p-0">
@@ -109,24 +102,13 @@ export default class TopCounterPanel extends Component {
                                             </div>
                                         </div>
                                         <div className="card-footer bg-c-yellow p-0 top-panel-card-footer">
-
-                                            {/* <div className="row align-items-center">
-                                            
-                                            <div className="col-12">
-                                                
-                                                <Bar data={cData}
-                                                    options={this.valincomebuildoption()}
-                                                    height={45}></Bar>
-                                            </div>
-                                        </div> */}
-
                                         </div>
                                     </div>
                                 </div >
                             )
                         })
                     }
-                </Carousel>
+                {/* </Carousel> */}
              </div>
 
 

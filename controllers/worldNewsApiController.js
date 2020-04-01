@@ -1,20 +1,24 @@
 const NewsAPI = require('newsapi');
-const newsapi = new NewsAPI(process.env.newsorgApiKey);
+const newsAPIKey = require('../config.json').newsOrgAPIKey;
+const newsapi = new NewsAPI(newsAPIKey);
 
-exports.getLatestNewsFeed = async function (req,res) {
+exports.getLatestNewsFeed = async function (req, res) {
     let returnObj = {};
+    let dateObj = new Date(Date.now() - 864e5);
+    let ParqamDate = `${dateObj.getFullYear()}-${dateObj.getMonth() + 1}-${dateObj.getDate()}`;
+    console.log("ParqamDate >>>> ", ParqamDate);
     newsapi.v2.topHeadlines({
         //sources: 'bbc-news,the-verge',
         q: 'corona',
         sortBy: 'popularity',
         //category: 'business',
-        from: '2020-03-28',
+        from: ParqamDate,
         language: 'en',
         // country: 'us'
-      }).then(response => {
+    }).then(response => {
         //console.log(response);
-        console.log("process key >>> ", process.env.newsorgApiKey);
-        
+        console.log("process key >>> ", newsAPIKey);
+
         if (response.status === "ok") {
             returnObj.status = true;
             returnObj.articles = response.articles.slice(0, 10);
@@ -27,5 +31,5 @@ exports.getLatestNewsFeed = async function (req,res) {
             articles: [...]
           }
         */
-      });
+    });
 }
