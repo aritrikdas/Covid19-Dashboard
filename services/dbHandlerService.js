@@ -2,7 +2,7 @@ var MongoClient = require('mongodb').MongoClient;
 const globalConfig = require('../config.json');
 const uri = globalConfig.mongoConnURL;
 
-exports.find = async function (query) {
+exports.find = async function (query, collectionName) {
     const client = await MongoClient.connect(uri, {
         useNewUrlParser: true
     }).catch(err => {
@@ -14,7 +14,7 @@ exports.find = async function (query) {
 
     try {
         const db = client.db("covid19");
-        let collection = db.collection('covid-world-data');
+        let collection = db.collection(collectionName);
         let res = await collection.find(query).toArray();
         return res;
     } catch (err) {
@@ -68,9 +68,7 @@ exports.upsert = async function (collectionName, updateKeyObj, objToUpdate) {
     try {
         const db = client.db("covid19");
         let collection = db.collection(collectionName);
-
         let updatedObject = await collection.findAndModify(updateKeyObj, [['_id', 'asc']], { $set: objToUpdate }, { upsert: true });
-
 
         console.log("db handler upsert >>>", updatedObject);
         return true;
