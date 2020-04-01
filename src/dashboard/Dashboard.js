@@ -7,25 +7,16 @@ import LiveTweeterFeedWizerd from "./LiveTweeterFeedWizerd";
 export default class Dashboard extends Component {
     render() {
         return (
-            <div>
-                <div className="right_col" role="main">
-                    {/* top tiles */}
-                    <TopCounter></TopCounter>
-                    {/* /top tiles */}
-
-
-                    <div className="row">
-                        <div className="col-md-4 col-sm-12 ">
-                            <LiveTweeterFeedWizerd></LiveTweeterFeedWizerd>
-                        </div>
-                        <div className="col-md-8 col-sm-8 col-xs-12">
-                            <VisitorLocation></VisitorLocation>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <RecentNews></RecentNews>
-                    </div>
+            <div className="row">
+                <TopCounter></TopCounter>
+                <div className="col-xl-4 col-md-12">
+                    <RecentNews></RecentNews>
+                    
                 </div>
+                <div className="col-xl-8 col-md-12">
+                    <VisitorLocation></VisitorLocation>
+                </div>
+
             </div>
         )
     }

@@ -11,7 +11,7 @@ import DashBoard from "../dashboard/Dashboard"
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 const PageContent = () => {
   return (
-    <div>
+    
       <Router>
         {/* page content */}
         <Switch>
@@ -28,7 +28,7 @@ const PageContent = () => {
         </Switch>
         {/* /page content */}
       </Router>
-    </div>
+    
   );
 };
 

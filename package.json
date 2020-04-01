@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "chart.js": "^2.9.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
@@ -12,9 +13,14 @@
     "mongodb": "^3.5.5",
     "morgan": "~1.9.1",
     "newsapi": "^2.4.0",
+    "node-cron": "^2.0.3",
+    "node-fetch": "^2.6.0",
     "react": "^16.11.0",
+    "react-chartjs-2": "^2.9.0",
     "react-debouncing": "^1.0.2",
     "react-dom": "^16.11.0",
+    "react-jvectormap": "0.0.16",
+    "react-multi-carousel": "^2.5.3",
     "react-router-dom": "^5.1.2",
     "react-truncate": "^2.4.0",
     "react-virtualized": "^9.21.2",
@@ -30,7 +36,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "startServer": "nodemon ./bin/www"
+    "server": "nodemon ./bin/www"
   },
   "eslintConfig": {
     "extends": "react-app"
