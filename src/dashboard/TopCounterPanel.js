@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
-import { Line, Bar } from 'react-chartjs-2';
+// import Carousel from 'react-multi-carousel';
+// import 'react-multi-carousel/lib/styles.css';
+// import { Line, Bar } from 'react-chartjs-2';
 
 const cData = {
     labels: ['January', 'February', 'March',
@@ -17,17 +17,17 @@ const cData = {
     ]
 }
 
-const responsive = {
-    superLargeDesktop: {
-        // the naming can be any, depends on you.
-        breakpoint: { max: 4000, min: 1401 },
-        items: 5,
-    },
-    desktop: {
-        breakpoint: { max: 1400, min: 1024 },
-        items: 3,
-    },
-}
+// const responsive = {
+//     superLargeDesktop: {
+//         // the naming can be any, depends on you.
+//         breakpoint: { max: 4000, min: 1401 },
+//         items: 5,
+//     },
+//     desktop: {
+//         breakpoint: { max: 1400, min: 1024 },
+//         items: 3,
+//     },
+// }
 
 export default class TopCounterPanel extends Component {
     constructor(props) {
@@ -68,11 +68,10 @@ export default class TopCounterPanel extends Component {
     }
     render() {
         return (
-
              <div className="d-flex col-xl-12 carousel-wrapper">
-
                     {
                         this.state.allCountryList.map((countryObj, index) => {
+                            console.log("index, index")
                             return (
                                 <div className="col-xl-3 col-md-6" key={index}>
                                     <div className="card">
