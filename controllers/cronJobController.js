@@ -1,7 +1,5 @@
 var cron = require('node-cron');
 const globalConfig = require('../config.json');
-
-
 const urlService = require('../services/requestService');
 const dbHandlerService = require('../services/dbHandlerService');
 
@@ -11,11 +9,9 @@ const detailsIndiaStatFetchAPI = globalConfig.detailsIndiaStatFetchAPI;
 exports.cronScheduler = async function () {
     console.log("before start scheduling");
 
-    
     cron.schedule('* */5 * * *', () => {
         console.log('running a task every  min');
         updateIndiaData();
-
     });
 
     cron.schedule('* */15 * * *', () => {
