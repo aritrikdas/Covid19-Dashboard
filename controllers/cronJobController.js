@@ -1,32 +1,38 @@
 var cron = require('node-cron');
 const globalConfig = require('../config.json');
-
-
 const urlService = require('../services/requestService');
 const dbHandlerService = require('../services/dbHandlerService');
 
+const detailsTotalWorldStatAPI = globalConfig.detailsTotalWorldStatFetchAPI;
 const detailsWorldStatFetchURL = globalConfig.detailsWorldStatFetchURL;
 const detailsIndiaStatFetchAPI = globalConfig.detailsIndiaStatFetchAPI;
+
 
 exports.cronScheduler = async function () {
     console.log("before start scheduling");
 
-    
-    cron.schedule('* */5 * * *', () => {
-        console.log('running a task every  min');
+    cron.schedule('* * * * *', () => {
+        console.log('running a task every min');
         updateIndiaData();
-
+        updateTotalWorldData();
     });
 
-    cron.schedule('* */15 * * *', () => {
+    cron.schedule('*/2 * * * *', () => {
         console.log('running a task every 2 min');
         updateWorldData();
     });
+
 }
 
 fetchDataFromAPI = async function (url) {
     let getWorldStatJSON = await urlService.getCall(url);
     return getWorldStatJSON;
+}
+
+updateTotalWorldData = async function(){
+    let totalWorldDetailsObj = JSON.parse(await fetchDataFromAPI(detailsTotalWorldStatAPI));
+    let updateKeyObj = { "name": "totalWorld" };
+    dbHandlerService.upsert('covid-total-world-data', updateKeyObj, totalWorldDetailsObj);
 }
 
 updateWorldData = async function () {

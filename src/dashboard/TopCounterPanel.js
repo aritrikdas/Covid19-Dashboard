@@ -38,8 +38,6 @@ export default class TopCounterPanel extends Component {
             indiaList: [],
         };
     }
-
-
     componentDidMount() {
         fetch("/api/v1/world-data").then((res) => res.json()).then((data) => {
             //console.log(data);
@@ -50,65 +48,54 @@ export default class TopCounterPanel extends Component {
         }).catch(err => {
             console.log(err);
         })
-
-        // fetch("/api/v1/india-data").then((res) => res.json()).then((data) => {
-        //     //console.log(data);
-        //     if (data.status) {
-        //         this.setState({ indiaList: data.respObj.statewise[0] })
-        //     }
-        // }).catch(err => {
-        //     console.log(err);
-        // })
     }
     calculateDailyPercentage(totalCases, todayCases) {
-        //console.log(totalCases + " "+ todayCases)
         let yesterDayCases = totalCases - todayCases
         let casePercentage = (todayCases / yesterDayCases) * 100
         return Math.ceil(casePercentage)
     }
     render() {
         return (
-             <div className="d-flex col-xl-12 carousel-wrapper">
-                    {
-                        this.state.allCountryList.map((countryObj, index) => {
-                            console.log("index, index")
-                            return (
-                                <div className="col-xl-3 col-md-6" key={index}>
-                                    <div className="card">
-                                        <div className="card-block">
-                                            <div className="row align-items-start">
-                                                <div className="d-flex col-2 flex-wrap">
-
-                                                    <img src={countryObj.countryInfo.flag} className="title-flag f-28" />
-                                                    <h4><small>{countryObj.countryInfo.iso3}</small></h4>
-                                                </div>
-                                                <div className="col-10">
-                                                    <h4 className="text-c-pink d-flex f-w-600">{countryObj.cases}
-                                                        <p className="text-danger m-b-0 p-l-20 case-spike-hike">{this.calculateDailyPercentage(countryObj.cases, countryObj.todayCases)}% <i className="feather icon-trending-up text-red f-16"></i></p>
-                                                    </h4>
-                                                    
-                                                </div>
+            <div className="d-flex col-xl-12 carousel-wrapper">
+                {
+                    this.state.allCountryList.map((countryObj, index) => {
+                        console.log("index, index")
+                        return (
+                            <div className="col-xl-3 col-md-6" key={index}>
+                                <div className="card">
+                                    <div className="card-block">
+                                        <div className="row align-items-start">
+                                            <div className="d-flex col-2 flex-wrap">
+                                                <img src={countryObj.countryInfo.flag} className="title-flag f-28" alt="" />
+                                                <h4><small>{countryObj.countryInfo.iso3}</small></h4>
                                             </div>
-                                            <div className="col-12 d-flex justify-content-between p-0">
-                                                <h6 className="m-b-0 text-primary">{countryObj.active} Active</h6>
-
-                                                <span className="divider"></span>
-                                                <h6 className="m-b-0 text-success">{countryObj.recovered} Recovered</h6>
-
-                                                <span className="divider"></span>
-                                                <h6 className="text-muted">{countryObj.deaths} Deceased</h6>
+                                            <div className="col-10">
+                                                <h4 className="text-c-pink d-flex f-w-600">{countryObj.cases}
+                                                    <p className="text-danger m-b-0 p-l-20 case-spike-hike">{this.calculateDailyPercentage(countryObj.cases, countryObj.todayCases)}% <i className="feather icon-trending-up text-red f-16"></i></p>
+                                                </h4>
 
                                             </div>
                                         </div>
-                                        <div className="card-footer bg-c-yellow p-0 top-panel-card-footer">
+                                        <div className="col-12 d-flex justify-content-between p-0">
+                                            <h6 className="m-b-0 text-primary">{countryObj.active} Active</h6>
+
+                                            <span className="divider"></span>
+                                            <h6 className="m-b-0 text-success">{countryObj.recovered} Recovered</h6>
+
+                                            <span className="divider"></span>
+                                            <h6 className="text-muted">{countryObj.deaths} Deceased</h6>
+
                                         </div>
                                     </div>
-                                </div >
-                            )
-                        })
-                    }
+                                    <div className="card-footer bg-c-yellow p-0 top-panel-card-footer">
+                                    </div>
+                                </div>
+                            </div >
+                        )
+                    })
+                }
                 {/* </Carousel> */}
-             </div>
+            </div>
 
 
         )

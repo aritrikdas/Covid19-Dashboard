@@ -1,8 +1,13 @@
-const urlService = require('../services/requestService');
+const dbHandler = require('../services/dbHandlerService');
 
 exports.getAllCountriesStat = async function (req, res) {
     let returnObj = {};
-    let worldDetailsObj = JSON.parse(await fetchDataFromAPI("https://corona.lmao.ninja/countries?sort=cases"));
+    let worldDetailsObj = await dbHandler.find({}, "covid-world-data");
+
+    worldDetailsObj.sort(function (x, y) {
+        return x.country === 'India' ? -1 : y.country === 'India' ? 1 : 0;
+    });
+
     returnObj.status = true;
     returnObj.respObj = worldDetailsObj;
     res.json(returnObj);
@@ -10,52 +15,8 @@ exports.getAllCountriesStat = async function (req, res) {
 
 exports.totalStat = async function (req, res) {
     let returnObj = {};
-    var options = {
-        host: "corona.lmao.ninja",
-        path: "/all",
-        port: 443,
-        headers: {
-            "Content-Type": "application/json"
-        }
-    };
-
-    urlService.getCall(options, (err, resp) => {
-        let countryDetailsObj = [];
-        if (err) {
-            returnObj.status = false;
-            returnObj.message = { "errMsg": err };
-            return;
-        }
-        countryDetailsObj = JSON.parse(resp);
-        returnObj.status = true;
-        returnObj.respObj = countryDetailsObj;
-        //console.log(JSON.parse(resp).length);
-        res.json(returnObj);
-    });
-}
-
-exports.indiaData = async function (req, res) {
-    let returnObj = {};
-    var options = {
-        host: "api.covid19india.org",
-        path: "/data.json",
-        port: 443,
-        headers: {
-            "Content-Type": "application/json"
-        }
-    };
-
-    urlService.getCall(options, (err, resp) => {
-        let countryDetailsObj = [];
-        if (err) {
-            returnObj.status = false;
-            returnObj.message = { "errMsg": err };
-            return;
-        }
-        countryDetailsObj = JSON.parse(resp);
-        returnObj.status = true;
-        returnObj.respObj = countryDetailsObj;
-        //console.log(JSON.parse(resp).length);
-        res.json(returnObj);
-    });
+    let totalWorldDetailsObj = await dbHandler.find({}, "covid-total-world-data");
+    returnObj.status = true;
+    returnObj.respObj = totalWorldDetailsObj;
+    res.json(returnObj);
 }
