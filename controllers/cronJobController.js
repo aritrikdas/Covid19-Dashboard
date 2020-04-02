@@ -6,20 +6,26 @@ const dbHandlerService = require('../services/dbHandlerService');
 const detailsTotalWorldStatAPI = globalConfig.detailsTotalWorldStatFetchAPI;
 const detailsWorldStatFetchURL = globalConfig.detailsWorldStatFetchURL;
 const detailsIndiaStatFetchAPI = globalConfig.detailsIndiaStatFetchAPI;
+const worldHistoryStatFetchAPI = globalConfig.worldHistoryStatFetchAPI;
+
 
 
 exports.cronScheduler = async function () {
     console.log("before start scheduling");
 
-    cron.schedule('* * * * *', () => {
-        console.log('running a task every min');
-        updateIndiaData();
-        updateTotalWorldData();
-    });
+    //updateWorldHistoryStat();
+    //updateWorldData();
+    //updateIndiaData();
+    // cron.schedule('* * * * *', () => {
+    //     console.log('running a task every min');
+    //     // updateTotalWorldData();
+    //     //updateIndiaData()
+    // });
 
-    cron.schedule('*/2 * * * *', () => {
+
+    cron.schedule('*/15 * * * *', async () => {
         console.log('running a task every 2 min');
-        updateWorldData();
+        await updateWorldData();
     });
 
 }
@@ -29,7 +35,7 @@ fetchDataFromAPI = async function (url) {
     return getWorldStatJSON;
 }
 
-updateTotalWorldData = async function(){
+updateTotalWorldData = async function () {
     let totalWorldDetailsObj = JSON.parse(await fetchDataFromAPI(detailsTotalWorldStatAPI));
     let updateKeyObj = { "name": "totalWorld" };
     dbHandlerService.upsert('covid-total-world-data', updateKeyObj, totalWorldDetailsObj);
@@ -38,7 +44,10 @@ updateTotalWorldData = async function(){
 updateWorldData = async function () {
     let worldDetailsObj = JSON.parse(await fetchDataFromAPI(detailsWorldStatFetchURL));
     console.log("data rrrrr >>>>>>>>>>>", worldDetailsObj.length);
-    dbHandlerService.bulkUpsert(worldDetailsObj, 'covid-world-data', 'country', 'country');
+    if (worldDetailsObj.length) {
+        await dbHandlerService.bulkUpsert(worldDetailsObj, 'covid-world-data', 'country', 'country');
+    }
+    await updateIndiaData();
 }
 
 updateIndiaData = async function () {
@@ -61,4 +70,13 @@ updateIndiaData = async function () {
         let updateKeyObj = { "country": "India" };
         dbHandlerService.upsert('covid-world-data', updateKeyObj, updateObj);
     }
+}
+
+updateWorldHistoryStat = async function () {
+
+    let worldHistoryStatObj = JSON.parse(await fetchDataFromAPI(worldHistoryStatFetchAPI));
+    console.log("data rrrrr >>>>>>>>>>>", worldHistoryStatObj.length);
+    let updateKeyObj = { "name": "world" };
+
+    dbHandlerService.upsert('world_history_stat', updateKeyObj, worldHistoryStatObj);
 }
