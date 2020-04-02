@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import Truncate from 'react-truncate';
 export default class RecentNews extends Component {
-    state = {
-        counter: 0,
-        newsFeedArray: []
-    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -48,7 +45,7 @@ export default class RecentNews extends Component {
                     {
                         this.state.newsFeedArray.map((newsObj, index) => {
                             return (
-                                <div className="row m-b-25" key={newsObj.publishedAt}>
+                                <div className="row m-b-25" key={newsObj.publishedAt + index}>
                                     <div className="col-auto p-r-0">
                                         <div className="u-img">
                                             <img src={newsObj.urlToImage} alt="user image" className="img-radius cover-img" />

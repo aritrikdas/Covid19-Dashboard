@@ -1,33 +1,4 @@
 import React, { Component } from 'react';
-// import Carousel from 'react-multi-carousel';
-// import 'react-multi-carousel/lib/styles.css';
-// import { Line, Bar } from 'react-chartjs-2';
-
-const cData = {
-    labels: ['January', 'February', 'March',
-        'April', 'May'],
-    datasets: [
-        {
-            label: false,
-            //backgroundColor: 'rgba(75,192,192,1)',
-            borderColor: '#fff',
-            borderWidth: 2,
-            data: [65, 65, 91, 9, 29, 33, 69, 6, 98]
-        }
-    ]
-}
-
-// const responsive = {
-//     superLargeDesktop: {
-//         // the naming can be any, depends on you.
-//         breakpoint: { max: 4000, min: 1401 },
-//         items: 5,
-//     },
-//     desktop: {
-//         breakpoint: { max: 1400, min: 1024 },
-//         items: 3,
-//     },
-// }
 
 export default class TopCounterPanel extends Component {
     constructor(props) {
@@ -42,6 +13,9 @@ export default class TopCounterPanel extends Component {
         fetch("/api/v1/world-data").then((res) => res.json()).then((data) => {
             //console.log(data);
             if (data.status) {
+                data.respObj.sort(function (x, y) {
+                    return x.country === 'India' ? -1 : y.country === 'India' ? 1 : 0;
+                });
                 this.setState({ allCountryList: data.respObj });
                 //this.updateChart();
             }

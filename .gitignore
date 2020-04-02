@@ -1,5 +1,6 @@
 /node_modules
 /*.DS_Store
 /public/*.DS_Store
+/build
 src/.DS_Store
 config.json

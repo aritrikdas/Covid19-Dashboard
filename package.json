@@ -29,6 +29,7 @@
     "twitter": "^1.7.1"
   },
   "devDependencies": {
+    "@amcharts/amcharts4": "^4.9.12",
     "react-scripts": "3.2.0"
   },
   "scripts": {

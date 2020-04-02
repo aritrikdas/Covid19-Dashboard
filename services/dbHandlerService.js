@@ -2,7 +2,7 @@ var MongoClient = require('mongodb').MongoClient;
 const globalConfig = require('../config.json');
 const uri = globalConfig.mongoConnURL;
 
-exports.find = async function (query, collectionName) {
+exports.find = async function (query, collectionName, sortQuery) {
     const client = await MongoClient.connect(uri, {
         useNewUrlParser: true
     }).catch(err => {
@@ -15,7 +15,7 @@ exports.find = async function (query, collectionName) {
     try {
         const db = client.db("covid19");
         let collection = db.collection(collectionName);
-        let res = await collection.find(query).toArray();
+        let res = await collection.find(query).sort(sortQuery).toArray();
         return res;
     } catch (err) {
         console.log(err);
