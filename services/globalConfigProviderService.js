@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === "production") {
     globalConfig.detailsIndiaStatFetchAPI = process.env.detailsIndiaStatFetchAPI;
     globalConfig.HistoryStatFetchAPI = process.env.HistoryStatFetchAPI;
     globalConfig.mongoConnURL = process.env.mongoConnURL;
-    globalConfig.newsOrgAPIKey = process.env.mongoConnURL;
+    globalConfig.newsOrgAPIKey = process.env.d58686a44e1e4051af71d9500de35c37;
 
     globalConfig.twitter = {
         "consumer_key": process.env.twitter_consumer_key,
