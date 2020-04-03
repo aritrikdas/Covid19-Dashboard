@@ -1,5 +1,6 @@
 var MongoClient = require('mongodb').MongoClient;
-const globalConfig = require('../config.json');
+const globalConfig = require('./globalConfigProviderService').globalConfig;
+
 const uri = globalConfig.mongoConnURL;
 
 exports.find = async function (query, collectionName, sortQuery) {
