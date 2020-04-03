@@ -1,12 +1,12 @@
 var cron = require('node-cron');
-const globalConfig = require('../config.json');
+const globalConfig = require('../services/globalConfigProviderService').globalConfig;
 const urlService = require('../services/requestService');
 const dbHandlerService = require('../services/dbHandlerService');
 
 const detailsTotalWorldStatAPI = globalConfig.detailsTotalWorldStatFetchAPI;
 const detailsWorldStatFetchURL = globalConfig.detailsWorldStatFetchURL;
 const detailsIndiaStatFetchAPI = globalConfig.detailsIndiaStatFetchAPI;
-const worldHistoryStatFetchAPI = globalConfig.worldHistoryStatFetchAPI;
+const HistoryStatFetchAPI = globalConfig.HistoryStatFetchAPI;
 
 
 
@@ -73,7 +73,7 @@ updateIndiaData = async function () {
 }
 
 updateWorldHistoryStat = async function () {
-
+    let worldHistoryStatFetchAPI = HistoryStatFetchAPI+'all';
     let worldHistoryStatObj = JSON.parse(await fetchDataFromAPI(worldHistoryStatFetchAPI));
     console.log("data rrrrr >>>>>>>>>>>", worldHistoryStatObj.length);
     let updateKeyObj = { "name": "world" };
