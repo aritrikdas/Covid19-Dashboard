@@ -28,6 +28,5 @@ if (process.env.NODE_ENV === "development") {
 
 }
 
-console.log("globalConfig >>> ", globalConfig);
-
+console.log("globalConfig >>> ", JSON.stringify(globalConfig));
 exports.globalConfig = globalConfig;
