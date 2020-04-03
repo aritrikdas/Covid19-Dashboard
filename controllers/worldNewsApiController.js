@@ -19,7 +19,7 @@ exports.getLatestNewsFeed = async function (req, res) {
         // country: 'us'
     }).then(response => {
         //console.log(response);
-        console.log("process key >>> ", newsAPIKey);
+        console.log("process key >>> ", globalConfig.newsOrgAPIKey);
 
         if (response.status === "ok") {
             returnObj.status = true;
