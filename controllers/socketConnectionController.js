@@ -1,5 +1,5 @@
 var twitter = require('twitter');
-const configJson = require('../config.json');
+const configJson = require('../services/globalConfigProviderService').globalConfig;
 var twit = new twitter(configJson.twitter);
 
 

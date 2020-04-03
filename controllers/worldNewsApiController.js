@@ -1,6 +1,6 @@
 const NewsAPI = require('newsapi');
-const newsAPIKey = require('../config.json').newsOrgAPIKey;
-const newsapi = new NewsAPI(newsAPIKey);
+const newsAPIKey = require('../services/globalConfigProviderService').globalConfig;
+const newsapi = new NewsAPI(newsAPIKey.newsOrgAPIKey);
 
 exports.getLatestNewsFeed = async function (req, res) {
     let returnObj = {};
