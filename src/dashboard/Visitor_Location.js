@@ -24,8 +24,8 @@ export default class VisitorLocation extends Component {
         console.log("chart.colors >> ", chart.colors);
 
         let mapData = [
-            { "id": "AF", "name": "Afghanistan", "value": 32358260, "color":"#3a8ed5"},
-            { "id": "AL", "name": "Albania", "value": 3215988, "color":"#8aabb0" },
+            { "id": "AF", "name": "Afghanistan", "value": 32358260, "color": "#3a8ed5" },
+            { "id": "AL", "name": "Albania", "value": 3215988, "color": "#8aabb0" },
             { "id": "DZ", "name": "Algeria", "value": 35980193, "color": chart.colors.getIndex(2) },
             { "id": "AO", "name": "Angola", "value": 19618432, "color": chart.colors.getIndex(2) },
             { "id": "AR", "name": "Argentina", "value": 40764561, "color": chart.colors.getIndex(3) },]
@@ -61,8 +61,10 @@ export default class VisitorLocation extends Component {
         imageSeries.heatRules.push({
             "target": circle,
             "property": "radius",
-            "min": 3,
-            "max": 30,
+            // "min": 3,
+            // "max": 30,
+            "min": am4core.color("#feb798"),
+            "max": am4core.color("#fe9365"),
             "dataField": "value",
             "bgColor": bgColor
         })
@@ -70,8 +72,8 @@ export default class VisitorLocation extends Component {
         let circle2 = imageSeries.mapImages.template.createChild(am4core.Circle);
         circle2.radius = 3;
         circle2.propertyFields.fill = "color";
-        
-        
+
+
         // circle2.events.on("inited", function(event){
         //   animateBullet(event.target);
         // })
