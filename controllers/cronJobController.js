@@ -25,7 +25,7 @@ exports.cronScheduler = async function () {
 
     cron.schedule('*/15 * * * *', async () => {
         console.log('running a task every 15 min');
-        updateWorldData();
+        //updateWorldData();
         // updateWorldHistoryStat();
     });
 
@@ -49,7 +49,7 @@ updateWorldData = async function () {
     }
     console.log("44444444444 >>>>>>>>>");
 
-    new Promise(resolve => setTimeout(resolve, 2000)).then(() => {
+    new Promise(resolve => setTimeout(resolve, 30000)).then(() => {
         console.log("55555555555 >>>>>>>>>");
         updateIndiaData();
     })
@@ -61,7 +61,7 @@ updateIndiaData = async function () {
     console.log("indiaDetailsObj", indiaDetailsObj.statewise.length);
     if (indiaDetailsObj.statewise && indiaDetailsObj.statewise.length) {
         let TotalCountIn = indiaDetailsObj.statewise[0];
-        let updateObj = {}
+        let updateObj = {};
         TotalCountIn.confirmed ? updateObj.cases = parseInt(TotalCountIn.confirmed, 10) : '';
         TotalCountIn.deaths ? updateObj.deaths = parseInt(TotalCountIn.deaths, 10) : '';
         TotalCountIn.recovered ? updateObj.recovered = parseInt(TotalCountIn.recovered, 10) : '';
@@ -71,7 +71,6 @@ updateIndiaData = async function () {
             TotalCountIn.delta.confirmed ? updateObj.todayCases = parseInt(TotalCountIn.delta.confirmed, 10) : '';
             TotalCountIn.delta.deaths ? updateObj.todayDeaths = parseInt(TotalCountIn.delta.deaths, 10) : '';
         }
-
         let updateKeyObj = { "country": "India" };
         dbHandlerService.upsert('covid-world-data', updateKeyObj, updateObj);
     }
