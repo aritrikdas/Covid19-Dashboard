@@ -25,7 +25,7 @@ export default class chart extends Component {
         let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
         dateAxis.renderer.grid.template.location = 0;
 
-        this.prepareAxisAndSeries(chart, 'case', 'CurvedColumnSeries');
+        this.prepareAxisAndSeries(chart, 'case', 'LineSeries');
         this.prepareAxisAndSeries(chart, 'deaths', 'LineSeries');
         this.prepareAxisAndSeries(chart, 'recovered', 'LineSeries');
 
@@ -81,10 +81,8 @@ export default class chart extends Component {
     }
     render() {
         return (
-            <div className="col-sm-12">
-                <div className="card">
-                    <div id="chartdiv" style={{ width: "100%", height: "300px" }}></div>
-                </div>
+            <div className="">
+                    <div id="chartdiv" style={{ width: "100%", height: "450px" }}></div>
             </div>
         )
     }

@@ -4,3 +4,4 @@
 /build
 src/.DS_Store
 config.json
+package-lock.json

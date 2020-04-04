@@ -40,13 +40,14 @@ exports.bulkUpsert = async function (arrayToUpdate, collectionName, updateKey, u
     try {
         const db = client.db("covid19");
         let collection = db.collection(collectionName);
-
+        console.log("22222222222 >>>>>>>>>");
         let updatedArray = await Promise.all(arrayToUpdate.map((object) => {
             updateQueryObj[updateKey] = object[updateParam];
             collection.findAndModify(updateQueryObj, [['_id', 'asc']], { $set: object }, { upsert: true })
         }));
+        console.log("333333333333 >>>>>>>>>");
 
-        console.log("updatedArray >>>", updatedArray);
+        console.log("updatedArray >>>", updatedArray.length);
         return true;
     } catch (err) {
         console.log(err);
@@ -69,10 +70,16 @@ exports.upsert = async function (collectionName, updateKeyObj, objToUpdate) {
     try {
         const db = client.db("covid19");
         let collection = db.collection(collectionName);
+        let objparamToUpdate = { '$set': objToUpdate };
         console.log("Inside upsert updateKeyObj >>>>>>>>>>>>>>>>>>>>", JSON.stringify(updateKeyObj));
-        console.log("Inside upsert objToUpdate >>>>>>>>>>>>>>>>>>>>", JSON.stringify(objToUpdate));
+        console.log("Inside upsert objToUpdate >>>>>>>>>>>>>>>>>>>>", JSON.stringify(objparamToUpdate));
 
-        let updatedObject = await collection.findAndModify(updateKeyObj, [['_id', 'asc']], { $set: objToUpdate }, { upsert: true });
+       // let updatedObject = await collection.findOneAndUpdate(updateKeyObj,  { $set: objToUpdate });
+        let updatedObject = await collection.update(updateKeyObj,  { $set: objToUpdate });
+
+        //let ff = await collection.find(updateKeyObj).toArray();
+
+        // console.log("ffffffff >>>>>>>>>>>", JSON.stringify(ff));
 
         console.log("db handler upsert >>>", JSON.stringify(updatedObject));
         return true;
@@ -81,4 +88,7 @@ exports.upsert = async function (collectionName, updateKeyObj, objToUpdate) {
     } finally {
         client.close();
     }
+
+    
+
 }
