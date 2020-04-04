@@ -50,6 +50,22 @@
   height: 5px;
 }
 
-.carousel-wrapper {
+.carousel-inner-wrapper {
+  max-height: 450px;
   overflow-x: scroll;
 }
+
+.world-stat-cards,
+.carousel-wrapper  {
+  flex-direction: row;
+}
+/* .world-stat-cards  .progress-bar:before {
+  content: "";
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  position: absolute;
+
+  background: inherit;
+  animation: blue-blink-bar 0.5s linear infinite;
+} */

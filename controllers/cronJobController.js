@@ -15,7 +15,7 @@ exports.cronScheduler = async function () {
 
     //updateWorldHistoryStat();
     //updateWorldData();
-    // updateIndiaData();
+    //updateIndiaData();
     // cron.schedule('* * * * *', () => {
     //     console.log('running a task every min');
     //     // updateTotalWorldData();
@@ -24,8 +24,9 @@ exports.cronScheduler = async function () {
 
 
     cron.schedule('*/15 * * * *', async () => {
-        console.log('running a task every 2 min');
-        await updateWorldData();
+        console.log('running a task every 15 min');
+        updateWorldData();
+        // updateWorldHistoryStat();
     });
 
 }
@@ -46,7 +47,13 @@ updateWorldData = async function () {
     if (worldDetailsObj.length) {
         await dbHandlerService.bulkUpsert(worldDetailsObj, 'covid-world-data', 'country', 'country');
     }
-    await updateIndiaData();
+    console.log("44444444444 >>>>>>>>>");
+
+    new Promise(resolve => setTimeout(resolve, 2000)).then(() => {
+        console.log("55555555555 >>>>>>>>>");
+        updateIndiaData();
+    })
+
 }
 
 updateIndiaData = async function () {
@@ -71,7 +78,7 @@ updateIndiaData = async function () {
 }
 
 updateWorldHistoryStat = async function () {
-    let worldHistoryStatFetchAPI = HistoryStatFetchAPI+'all';
+    let worldHistoryStatFetchAPI = HistoryStatFetchAPI + 'all';
     let worldHistoryStatObj = JSON.parse(await fetchDataFromAPI(worldHistoryStatFetchAPI));
     let updateKeyObj = { "name": "world" };
 

@@ -1,5 +1,7 @@
 const NewsAPI = require('newsapi');
 const globalConfig = require('../services/globalConfigProviderService').globalConfig;
+
+console.log(" globalConfig.newsOrgAPIKey ><><><><><><><><><><><><><><><><", globalConfig.newsOrgAPIKey);
 const newsapi = new NewsAPI(globalConfig.newsOrgAPIKey);
 
 exports.getLatestNewsFeed = async function (req, res) {
@@ -17,7 +19,7 @@ exports.getLatestNewsFeed = async function (req, res) {
         // country: 'us'
     }).then(response => {
         //console.log(response);
-        console.log("process key >>> ", newsAPIKey);
+        console.log("process key >>> ", globalConfig.newsOrgAPIKey);
 
         if (response.status === "ok") {
             returnObj.status = true;
