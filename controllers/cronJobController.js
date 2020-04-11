@@ -3,7 +3,7 @@ const globalConfig = require('../services/globalConfigProviderService').globalCo
 const urlService = require('../services/requestService');
 const dbHandlerService = require('../services/dbHandlerService');
 
-const detailsTotalWorldStatAPI = globalConfig.detailsTotalWorldStatFetchAPI;
+const detailsTotalWorldStatAPI = globalConfig.detailsTotalWorldStatAPI;
 const detailsWorldStatFetchURL = globalConfig.detailsWorldStatFetchURL;
 const detailsIndiaStatFetchAPI = globalConfig.detailsIndiaStatFetchAPI;
 const HistoryStatFetchAPI = globalConfig.HistoryStatFetchAPI;
@@ -11,8 +11,10 @@ const HistoryStatFetchAPI = globalConfig.HistoryStatFetchAPI;
 
 
 exports.cronScheduler = async function () {
+
     console.log("before start scheduling");
 
+    
     //updateWorldHistoryStat();
     //updateWorldData();
     //updateIndiaData();
@@ -22,13 +24,19 @@ exports.cronScheduler = async function () {
     //     //updateIndiaData()
     // });
 
+    if (process.env.NODE_ENV === "development") {
+        cron.schedule('15 * * * *', async () => {
+            console.log('running a task every 15 min');
+            updateWorldData();
+            // updateWorldHistoryStat();
+        });
 
-    cron.schedule('*/15 * * * *', async () => {
-        console.log('running a task every 15 min');
-        //updateWorldData();
-        // updateWorldHistoryStat();
-    });
-
+        cron.schedule('10 * * * *', async () => {
+            console.log('running a task every 10 min');
+            updateTotalWorldData();
+            // updateWorldHistoryStat();
+        });
+    }
 }
 
 fetchDataFromAPI = async function (url) {
@@ -37,9 +45,11 @@ fetchDataFromAPI = async function (url) {
 }
 
 updateTotalWorldData = async function () {
+    
     let totalWorldDetailsObj = JSON.parse(await fetchDataFromAPI(detailsTotalWorldStatAPI));
-    let updateKeyObj = { "name": "totalWorld" };
-    dbHandlerService.upsert('covid-total-world-data', updateKeyObj, totalWorldDetailsObj);
+    let updateKeyObj = { "country": "World" };
+
+    dbHandlerService.upsert('covid-world-data', updateKeyObj, totalWorldDetailsObj);
 }
 
 updateWorldData = async function () {

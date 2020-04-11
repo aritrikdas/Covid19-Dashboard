@@ -9,6 +9,26 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 
 export default class VisitorLocation extends Component {
+    constructor(props) {
+        super(props);
+        console.log("this.props.allCountryList ", this.props.allCountryList);
+        //let mapDataObj = []
+        let allCountryList = this.props.allCountryList;
+        for (let i = 0; i < allCountryList.length; i++) {
+            allCountryList[i].id = allCountryList[i].countryInfo.iso2;
+            allCountryList[i].name = allCountryList[i].country;
+        }
+        // this.props.allCountryList.forEach((countryObj) => {
+        //     let countryDetails = {
+        //         id: countryObj.countryInfo.iso2,
+        //         name: countryObj.country,
+                
+        //     };
+        // });
+        this.state = {
+            mapData: allCountryList
+        }
+    }
 
     componentDidMount() {
         // Themes begin
@@ -23,13 +43,10 @@ export default class VisitorLocation extends Component {
 
         console.log("chart.colors >> ", chart.colors);
 
-        let mapData = [
-            { "id": "AF", "name": "Afghanistan", "value": 32358260, "color": "#3a8ed5" },
-            { "id": "AL", "name": "Albania", "value": 3215988, "color": "#8aabb0" },
-            { "id": "DZ", "name": "Algeria", "value": 35980193, "color": chart.colors.getIndex(2) },
-            { "id": "AO", "name": "Angola", "value": 19618432, "color": chart.colors.getIndex(2) },
-            { "id": "AR", "name": "Argentina", "value": 40764561, "color": chart.colors.getIndex(3) },]
+        // let mapData = [{ "id": "AF", "name": "Afghanistan", "value": 32358260, "color": "#3a8ed5" },
+        // { "id": "AL", "name": "Albania", "value": 3215988, "color": "#8aabb0" }];
 
+        
         // Set map definition
         chart.geodata = am4geodata_worldLow;
 
@@ -45,33 +62,32 @@ export default class VisitorLocation extends Component {
         polygonSeries.calculateVisualCenter = true;
 
         let imageSeries = chart.series.push(new am4maps.MapImageSeries());
-        imageSeries.data = mapData;
-        imageSeries.dataFields.value = "value";
+        imageSeries.data = this.state.mapData;
+        imageSeries.dataFields.value = "cases";
 
 
         let imageTemplate = imageSeries.mapImages.template;
-        imageTemplate.nonScaling = true
+        imageTemplate.nonScaling = false;
 
-        var bgColor = new am4core.InterfaceColorSet().getFor("background");
+        // var bgColor = new am4core.InterfaceColorSet().getFor("background");
 
         let circle = imageTemplate.createChild(am4core.Circle);
         circle.fillOpacity = 0.7;
-        circle.propertyFields.fill = "color";
-        circle.tooltipText = "{name}: [bold]{value}[/]";
+        //circle.propertyFields.fill = "color";
+        circle.tooltipText = "{name}: [bold]{cases}[/]";
         imageSeries.heatRules.push({
             "target": circle,
             "property": "radius",
-            // "min": 3,
-            // "max": 30,
-            "min": am4core.color("#feb798"),
-            "max": am4core.color("#fe9365"),
-            "dataField": "value",
-            "bgColor": bgColor
+            "min": 3,
+            "max": 30,
+            // "min": am4core.color("#feb798"),
+            // "max": am4core.color("#fe9365"),
+            "dataField": "value"
         })
 
-        let circle2 = imageSeries.mapImages.template.createChild(am4core.Circle);
-        circle2.radius = 3;
-        circle2.propertyFields.fill = "color";
+        // let circle2 = imageSeries.mapImages.template.createChild(am4core.Circle);
+        // circle2.radius = 3;
+        // circle2.propertyFields.fill = "color";
 
 
         // circle2.events.on("inited", function(event){
@@ -101,6 +117,7 @@ export default class VisitorLocation extends Component {
             return longitude;
         })
 
+       // this.loadData(chart);
     }
 
 
