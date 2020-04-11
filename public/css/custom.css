@@ -59,13 +59,24 @@
 .carousel-wrapper  {
   flex-direction: row;
 }
-/* .world-stat-cards  .progress-bar:before {
-  content: "";
-  height: 5px;
-  width: 5px;
-  border-radius: 50%;
-  position: absolute;
 
-  background: inherit;
-  animation: blue-blink-bar 0.5s linear infinite;
-} */
+.user-activity-card.card {
+  height: 450px;
+  overflow-y: scroll;
+}
+
+
+@media (max-width: 992px) {
+  .main-body .page-wrapper{
+    padding: 0;
+  } 
+  .world-stat-cards {
+    flex-wrap: wrap;
+  }
+  .carousel-wrapper {
+    flex-wrap: wrap;
+  }
+  .carousel-inner-wrapper {
+    display: flex;
+  }
+}

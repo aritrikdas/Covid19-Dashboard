@@ -49,7 +49,7 @@ exports.getHistoricalChartData = async function (req, res) {
     let chartDataArr = [];
     if (respObj.cases) {
         let dateArr = Object.keys(respObj.cases);
-        console.log("Dates >>>> ", dateArr);
+        //console.log("Dates >>>> ", dateArr);
         dateArr.forEach((dateVal) => {
             let tempDataObj = {};
             tempDataObj.date = dateVal;
@@ -63,8 +63,6 @@ exports.getHistoricalChartData = async function (req, res) {
             }
             chartDataArr.push(tempDataObj);
         })
-
     }
-    
     res.json(chartDataArr);
 }
