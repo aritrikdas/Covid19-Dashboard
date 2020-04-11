@@ -14,8 +14,7 @@ exports.cronScheduler = async function () {
 
     console.log("before start scheduling");
 
-    
-    //updateWorldHistoryStat();
+    //updateTotalWorldData();
     //updateWorldData();
     //updateIndiaData();
     // cron.schedule('* * * * *', () => {
@@ -34,6 +33,7 @@ exports.cronScheduler = async function () {
         cron.schedule('10 * * * *', async () => {
             console.log('running a task every 10 min');
             updateTotalWorldData();
+            updateWorldHistoryStat();
             // updateWorldHistoryStat();
         });
     }
@@ -55,12 +55,11 @@ updateTotalWorldData = async function () {
 updateWorldData = async function () {
     let worldDetailsObj = JSON.parse(await fetchDataFromAPI(detailsWorldStatFetchURL));
     if (worldDetailsObj.length) {
+        
         await dbHandlerService.bulkUpsert(worldDetailsObj, 'covid-world-data', 'country', 'country');
     }
-    console.log("44444444444 >>>>>>>>>");
 
-    new Promise(resolve => setTimeout(resolve, 30000)).then(() => {
-        console.log("55555555555 >>>>>>>>>");
+    new Promise(resolve => setTimeout(resolve, 50000)).then(() => {
         updateIndiaData();
     })
 

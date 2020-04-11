@@ -68,7 +68,7 @@ exports.upsert = async function (collectionName, updateKeyObj, objToUpdate) {
 
     try {
         const db = client.db("covid19");
-        let collection = db.collection('covid-world-data');
+        let collection = db.collection(collectionName);
         let objparamToUpdate = { '$set': objToUpdate };
         console.log("Inside upsert updateKeyObj >>>>>>>>>>>>>>>>>>>>", JSON.stringify(updateKeyObj));
         console.log("Inside upsert objToUpdate >>>>>>>>>>>>>>>>>>>>", JSON.stringify(objparamToUpdate));

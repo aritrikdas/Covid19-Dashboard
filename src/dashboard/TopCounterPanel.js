@@ -28,7 +28,7 @@ export default class TopCounterPanel extends Component {
                                 console.log("index, index")
                                 return (
 
-                                    <div className="col-xl-12 col-md-6 col-sm-10" key={index}>
+                                    <div className="col-10 col-sm-10 col-md-6 col-xl-12" key={index}>
                                         <div className="card">
                                             <div className="card-block p-b-10">
                                                 {/* <i class="flag flag-icon-background st-icon flag-icon-INR"></i> */}

@@ -78,7 +78,7 @@ export default class chart extends Component {
 
         // this makes gap between panels
         valueAxis2.marginTop = 30;
-        valueAxis2.renderer.baseGrid.disabled = true;
+        valueAxis2.renderer.baseGrid.disabled = false;
         valueAxis2.renderer.inside = true;
         valueAxis2.height = am4core.percent(40);
         valueAxis2.zIndex = 3;
