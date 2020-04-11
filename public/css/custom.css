@@ -80,3 +80,10 @@
     display: flex;
   }
 }
+
+@media (max-width: 480px) {
+  .carousel-inner-wrapper .col {
+    padding-right: 0;
+  }
+
+}

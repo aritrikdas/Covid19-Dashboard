@@ -28,7 +28,7 @@ export default class TopCounterPanel extends Component {
                                 console.log("index, index")
                                 return (
 
-                                    <div className="col-10 col-sm-10 col-md-6 col-xl-12" key={index}>
+                                    <div className="col  col-11 col-sm-10 col-md-6 col-xl-12" key={index}>
                                         <div className="card">
                                             <div className="card-block p-b-10">
                                                 {/* <i class="flag flag-icon-background st-icon flag-icon-INR"></i> */}
@@ -78,57 +78,4 @@ export default class TopCounterPanel extends Component {
         )
     }
 
-    valincomebuildoption() {
-        return {
-            maintainAspectRatio: false,
-            title: {
-                display: false,
-            },
-            tooltips: {
-                enabled: true,
-            },
-            legend: {
-                display: false
-            },
-            hover: {
-                mode: 'index'
-            },
-            scales: {
-                xAxes: [{
-                    display: false,
-                    gridLines: false,
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Date'
-                    },
-                    barPercentage: 0.2
-                }],
-                yAxes: [{
-                    display: false,
-                    gridLines: false,
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Value'
-                    },
-                    ticks: {
-                        min: 1,
-                    }
-                }]
-            },
-            elements: {
-                point: {
-                    radius: 4,
-                    borderWidth: 12
-                }
-            },
-            layout: {
-                padding: {
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: 0
-                }
-            }
-        };
-    }
 }
